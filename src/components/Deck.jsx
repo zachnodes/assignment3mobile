@@ -39,6 +39,25 @@ const Deck = () => {
         
     }
 
+    const dealCards = (num) => {
+      const remainingDeck = [...deck]
+      const dealtCards = []
+
+      
+      for (let i = 0; i < num; i++) {
+        const randomIndex = Math.floor(Math.random() * remainingDeck.length)
+        dealtCards.push(remainingDeck.splice(randomIndex, 1)[0])
+      }
+
+    
+      setSelectedCards(dealtCards)
+      setDeck(remainingDeck)
+    }
+    const resetDeck = () => {
+      setDeck(genDeck()); // Your function to generate a fresh deck
+      setSelectedCards([]); // Reset selected cards
+    };
+
 
     return (
         <div>
@@ -49,11 +68,11 @@ const Deck = () => {
                 </div>
 
                 {/* Deal 5 or 7 cards buttons */}
-                <button>Deal 5</button>
-                <button>Deal 7</button>
+                <button onClick={() => dealCards(5)}>Deal 5</button>
+                <button onClick={() => dealCards(7)}>Deal 7</button>
 
                 {/* Reset and Toss buttons */}
-                <button>Reset</button>
+                <button onClick={() => resetDeck()}>Reset</button>
                 <button>Toss</button>
                 <button>Regroup</button>
                 <button>Wildcard</button>
