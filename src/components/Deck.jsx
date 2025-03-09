@@ -92,16 +92,16 @@ const Deck = () => {
 
     const shuffleCards = () => {
       const shuffledCards = [...selectedCards]
-    
-      for (let i = shuffledCards.length - 1; i > 0; i--) {
-        
+
+      let i = shuffledCards.length - 1
+      while (i > 0) {
         const j = Math.floor(Math.random() * (i + 1))
-    
-        
-        [shuffledCards[i], shuffledCards[j]] = [shuffledCards[j], shuffledCards[i]]
+        // Swap the elements
+        const temp = shuffledCards[i]
+        shuffledCards[i] = shuffledCards[j]
+        shuffledCards[j] = temp
+        i--
       }
-    
-      
       setSelectedCards(shuffledCards)
     }
     
