@@ -90,6 +90,25 @@ const Deck = () => {
       }
     }
 
+    const shuffleCards = () => {
+      const shuffledCards = [...selectedCards]
+    
+      for (let i = shuffledCards.length - 1; i > 0; i--) {
+        
+        const j = Math.floor(Math.random() * (i + 1))
+    
+        
+        [shuffledCards[i], shuffledCards[j]] = [shuffledCards[j], shuffledCards[i]]
+      }
+    
+      
+      setSelectedCards(shuffledCards)
+    }
+    
+    const handleRegroupClick = () => {
+      shuffleCards()
+    }
+
 
     return (
         <div>
@@ -106,7 +125,7 @@ const Deck = () => {
                 {/* Reset and Toss buttons */}
                 <button onClick={() => resetDeck()}>Reset</button>
                 <button onClick={() => tossCard()}>Toss</button>
-                <button>Regroup</button>
+                <button onClick={() => handleRegroupClick()}>Regroup</button>
                 <button>Wildcard</button>
             </div>
 
