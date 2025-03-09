@@ -90,6 +90,21 @@ const Deck = () => {
       }
     }
 
+    const handleWildcardClick = () => {
+      const suits = ["♥", "♦", "♣", "♠"]
+      const values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
+  
+      
+      const randomSuit = suits[Math.floor(Math.random() * suits.length)]
+      const randomValue = values[Math.floor(Math.random() * values.length)]
+  
+     
+      const wildcardCard = { suit: randomSuit, value: randomValue }
+  
+      
+      setSelectedCards((prevCards) => [...prevCards, wildcardCard])
+    }
+
     const shuffleCards = () => {
       const shuffledCards = [...selectedCards]
 
@@ -126,7 +141,8 @@ const Deck = () => {
                 <button onClick={() => resetDeck()}>Reset</button>
                 <button onClick={() => tossCard()}>Toss</button>
                 <button onClick={() => handleRegroupClick()}>Regroup</button>
-                <button>Wildcard</button>
+                <button onClick={() => handleWildcardClick()}>Wildcard</button>
+                
             </div>
 
         {/* Render the selected cards */}
