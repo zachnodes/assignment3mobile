@@ -20,6 +20,7 @@ const genDeck = () => {
 const Deck = () => {
     const [deck, setDeck] = useState(genDeck())
     const [selectedCards, setSelectedCards] = useState([])
+    const [pickedCardIndex, setPickedCardIndex] = useState(null)
     
     
     const handleDeckClick = () => {
@@ -53,10 +54,41 @@ const Deck = () => {
       setSelectedCards(dealtCards)
       setDeck(remainingDeck)
     }
+
     const resetDeck = () => {
-      setDeck(genDeck()); // Your function to generate a fresh deck
-      setSelectedCards([]); // Reset selected cards
-    };
+      setDeck(genDeck())
+      setSelectedCards([])
+    }
+
+    const handleCardClick = (index) => {
+      if (pickedCardIndex === null) {
+        
+        setPickedCardIndex(index)
+      } else {
+        if (pickedCardIndex === index) {
+          
+          setPickedCardIndex(null)
+        } else {
+          
+          const newSelectedCards = [...selectedCards]
+          
+          const temp = newSelectedCards[pickedCardIndex]
+          newSelectedCards[pickedCardIndex] = newSelectedCards[index]
+          newSelectedCards[index] = temp
+          setSelectedCards(newSelectedCards)
+
+          setPickedCardIndex(index)
+        }
+      }
+    }
+
+    const tossCard = () => {
+      if (pickedCardIndex !== null) {
+        const newSelectedCards = selectedCards.filter((_, index) => index !== pickedCardIndex)
+        setSelectedCards(newSelectedCards)
+        setPickedCardIndex(null)
+      }
+    }
 
 
     return (
@@ -73,7 +105,7 @@ const Deck = () => {
 
                 {/* Reset and Toss buttons */}
                 <button onClick={() => resetDeck()}>Reset</button>
-                <button>Toss</button>
+                <button onClick={() => tossCard()}>Toss</button>
                 <button>Regroup</button>
                 <button>Wildcard</button>
             </div>
@@ -85,6 +117,8 @@ const Deck = () => {
                 key={index}
                 suit={card.suit}
                 value={card.value}
+                isPicked={pickedCardIndex === index}  
+                onClick={() => handleCardClick(index)}  
             />
             ))}
         </div>
